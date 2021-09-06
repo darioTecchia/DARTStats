@@ -1,24 +1,50 @@
 {
-  "posts": [
+  "stats": [
     {
-      "id": 1,
-      "title": "json-server",
-      "author": "typicode"
+      "nOfExecutionTextual": 0,
+      "nOfExecutionStructural": 1,
+      "FILE_PATH": "/Users/dariotecchia/Documents/dev/SorrentoMarina/stats.json",
+      "id": "stats1"
+    }
+  ],
+  "sessions": [
+    {
+      "userId": "14-7D-DA-9D-D0-16",
+      "id": "session1",
+      "projectName": "SorrentoMarina",
+      "startTime": 1629369385768,
+      "endTime": 1629369431126,
+      "nOfGF": 0,
+      "nOfET": 9,
+      "nOfLOC": 16,
+      "nOfTotalClasses": 166,
+      "kind": "Structural",
+      "statId": "stats1"
     },
     {
-      "body": "some comment",
-      "postId": 2,
-      "id": 2
+      "userId": "14-7D-DA-9D-D0-16",
+      "id": "session2",
+      "projectName": "SorrentoMarina",
+      "startTime": 1629369385768,
+      "endTime": 1629369431126,
+      "nOfGF": 0,
+      "nOfET": 9,
+      "nOfLOC": 16,
+      "nOfTotalClasses": 166,
+      "kind": "Structural",
+      "statId": "stats2"
     }
   ],
-  "comments": [
+  "actions": [
     {
-      "id": 1,
-      "body": "some comment",
-      "postId": 1
+      "id": "action1",
+      "actionKind": "REFACTORING_PREVIEW",
+      "smellKind": "LACK_OF_COHESION",
+      "timestamp": 1629369445448,
+      "className": "TuristaTest",
+      "methodName": "toStringTest",
+      "packageName": "models",
+      "sessionId": "session1"
     }
-  ],
-  "profile": {
-    "name": "typicode"
-  }
+  ]
 }

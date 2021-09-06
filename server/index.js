@@ -1,4 +1,5 @@
 const express = require('express')
+const bodyParser = require("body-parser")
 const path = require('path')
 const { Nuxt, Builder } = require('nuxt')
 const jsonServer = require('json-server')
@@ -10,6 +11,10 @@ app.use((req, res, next) => {
   res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
   next();
 })
+
+app.use(bodyParser.json());
+
+app.use(bodyParser.urlencoded({ extended: true }));
 
 // Import and Set Nuxt.js options
 let config = require('../nuxt.config.js')
@@ -36,8 +41,24 @@ async function start() {
     res.send({ "message": "Welcome" });
   });
 
-  // json-server routes
-  app.use('/api', jsonServer.defaults(), jsonServer.router(path.join(__dirname, 'db.json')));
+  const db = require("./models");
+  db.mongoose
+    .connect(db.url, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+      useCreateIndex: true
+    })
+    .then(() => {
+      console.log("Connected to the database!");
+    })
+    .catch(err => {
+      console.log("Cannot connect to the database!", err);
+      process.exit();
+    });
+
+  // back end server routes
+  // app.use('/api', jsonServer.defaults(), jsonServer.router(path.join(__dirname, 'db.json')));
+  require("./routes/Stat.router")(app);
 
   // Give nuxt middleware to express
   app.use(nuxt.render)
