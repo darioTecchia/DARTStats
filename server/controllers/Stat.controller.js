@@ -37,7 +37,9 @@ exports.findAll = (req, res) => {
   // create condition object
 
   Stat.find()
+    .select(["-sessions"])
     .then(data => {
+      delete data.sessions;
       res.send(data);
     })
     .catch(err => {

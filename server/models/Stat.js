@@ -2,6 +2,7 @@ module.exports = mongoose => {
 
   var schema = mongoose.Schema(
     {
+      id: false,
       nOfExecutionTextual: Number,
       nOfExecutionStructural: Number,
       sessions: {
@@ -32,8 +33,16 @@ module.exports = mongoose => {
         }]
       }
     },
-    { versionKey: false }
+    {
+      versionKey: false,
+      toObject: { virtuals: true },
+      toJSON: { virtuals: true }
+    }
   );
+
+  schema.virtual('nOfTotalExecution').get(function () {
+    return this.nOfExecutionStructural + this.nOfExecutionTextual;
+  });
 
   const Stat = mongoose.model("Stat", schema);
   return Stat;
