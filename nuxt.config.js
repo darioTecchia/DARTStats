@@ -61,7 +61,15 @@ module.exports = {
   modules: [
     // Doc: https://github.com/nuxt-community/axios-module#usage
     '@nuxtjs/axios',
+    'bootstrap-vue/nuxt'
   ],
+  /*
+  ** Vue Bootrap module configuration
+  */
+  bootstrapVue: {
+    // Install the `IconsPlugin` plugin (in addition to `BootstrapVue` plugin)
+    icons: true
+  },
   /*
   ** Axios module configuration
   */
