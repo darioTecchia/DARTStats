@@ -59,6 +59,8 @@ async function start() {
   // back end server routes
   // app.use('/api', jsonServer.defaults(), jsonServer.router(path.join(__dirname, 'db.json')));
   require("./routes/Stat.router")(app);
+  require("./routes/Session.router")(app);
+  require("./routes/Action.router")(app);
 
   // Give nuxt middleware to express
   app.use(nuxt.render)
