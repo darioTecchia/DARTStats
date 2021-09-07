@@ -62,7 +62,6 @@ module.exports = {
     '@nuxtjs/axios',
     'bootstrap-vue/nuxt',
     ['@nuxtjs/moment', {
-      defaultLocale: 'it',
       defaultTimezone: 'Europe/Rome'
     }]
   ],
