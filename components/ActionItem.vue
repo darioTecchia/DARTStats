@@ -13,6 +13,8 @@
         <b-form-checkbox disabled button-variant="danger" :checked="action.actionCanceled" switch>Canceled</b-form-checkbox>
         <b-form-checkbox disabled button-variant="success" :checked="action.actionDone" switch>Done</b-form-checkbox>
       </p>
+
+      <small> <a :href="'/action/' + action._id">Click for more details</a> </small>
     </b-list-group-item>
   </div>
 </template>
