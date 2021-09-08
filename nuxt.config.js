@@ -72,6 +72,7 @@ module.exports = {
     // Install the `IconsPlugin` plugin (in addition to `BootstrapVue` plugin)
     icons: true
   },
+  components: true,
   /*
   ** Axios module configuration
   */

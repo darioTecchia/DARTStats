@@ -1,37 +1,67 @@
 <template>
   <div>
+    <b-card-group deck class="mb-4">
+      <b-card
+        header="Collected Statistics"
+        border-variant="info"
+        header-bg-variant="info"
+        header-text-variant="white"
+        align="center"
+      >
+        <b-card-text>
+          <a href="/stat">
+            <h1>{{general.statCount}}</h1>
+          </a>
+        </b-card-text>
+      </b-card>
+
+      <b-card
+        header="Collected Sessions"
+        border-variant="primary"
+        header-bg-variant="primary"
+        header-text-variant="white"
+        align="center"
+      >
+        <b-card-text>
+          <a href="/session">
+            <h1>
+              {{general.sessionStructuralCount + general.sessionTextualCount}}
+              (
+                <span class="text-secondary">{{general.sessionStructuralCount}} S</span>
+                +
+                <span class="text-success">{{general.sessionTextualCount}} T</span>
+              )
+            </h1>
+          </a>
+        </b-card-text>
+      </b-card>
+
+      <b-card
+        header="Collected Actions"
+        border-variant="warning"
+        header-bg-variant="warning"
+        header-text-variant="white"
+        align="center"
+      >
+        <b-card-text>
+          <a href="/action">
+            <h1>{{general.actionCount}}</h1>
+          </a>
+        </b-card-text>
+      </b-card>
+
+    </b-card-group>
     <b-card>
-      <h2>Last Stats:</h2>
+      <h2>Last 5 Stats</h2>
       <b-list-group>
-        <b-list-group-item
-          v-for="stat in stats"
-          :key="stat._id"
-          class="flex-column align-items-start"
-        >
-          <div class="d-flex w-100 justify-content-between">
-            <h5 class="mb-1">Stat {{ stat._id }}</h5>
-          </div>
-
-          <p class="mb-1">
-            Number of total sessions (executions):
-            <b-badge pill variant="primary">{{
-              stat.nOfTotalExecution
-            }}</b-badge>
-            (<b-badge pill variant="secondary"
-              >Textual {{ stat.nOfExecutionTextual }}</b-badge
-            >
-            <b-badge pill variant="success">
-              Structural {{ stat.nOfExecutionStructural }}</b-badge
-            >)
-          </p>
-
-          <small> <a :href="'/stat/' + stat._id">Click for more details</a> </small>
-        </b-list-group-item>
+        <StatItem v-for="stat in stats.slice(0,5)" :key="stat._id" :stat="stat" />
       </b-list-group>
     </b-card>
 
     <div class="mt-4">
+      <b-button href="/stat" block variant="info">View all stats</b-button>
       <b-button href="/session" block variant="primary">View all sessions</b-button>
+      <b-button href="/action" block variant="warning">View all actions</b-button>
     </div>
   </div>
 </template>
@@ -40,12 +70,14 @@
 export default {
   async asyncData({ $axios }) {
     let stats = [];
+    let general = null;
     try {
       stats = await $axios.$get("/api/stat");
+      general = await $axios.$get("/api/general");
     } catch (error) {
       console.error(error.stack);
     }
-    return { stats };
+    return { stats, general };
   },
 };
 </script>

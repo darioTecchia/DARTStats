@@ -1,8 +1,12 @@
 <template>
   <div>
-    <b-card class="mb-4">
-      <h2>Session {{session._id}}</h2>
-      <p class="mb-0">
+    <b-list-group-item class="flex-column align-items-start">
+      <div class="d-flex w-100 justify-content-between">
+        <h5 class="mb-1">{{session.kind}} Analysis ({{session._id}})</h5>
+        <small>{{$moment(session.startTime).format('LL')}}</small>
+      </div>
+
+      <p class="mb-1">
         <b>Project name</b>: {{session.projectName}} <br>
         <b>Execution time</b>: {{ (session.endTime - session.startTime)/1000 }}s <br>
         <b>User ID</b>: {{session.userId}} <br>
@@ -14,29 +18,18 @@
           <b-progress-bar :value="session.nOfET" :label="session.nOfET + ' Eager Test'"  variant="danger"></b-progress-bar>
         </b-progress>
       </p>
-    </b-card>
-    <b-card>
-      <h3>Actions executed:</h3>
-      <b-list-group>
-        <ActionItem v-for="action in session.actions" :key="action._id" :action="action" />
-      </b-list-group>
-    </b-card>
+
+      <small> <a :href="'/session/' + session._id">Click for more details</a> </small>
+    </b-list-group-item>
   </div>
 </template>
 
 <script>
 export default {
-  async asyncData({ $axios, params }) {
-    let session = null;
-    try {
-      session = await $axios.$get("/api/session/" + params.id);
-    } catch (error) {
-      console.error(error.stack);
+  props: {
+    session: {
+      type: Object
     }
-    return { session };
-  },
-};
+  }
+}
 </script>
-
-<style>
-</style>
