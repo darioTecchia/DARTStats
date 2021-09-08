@@ -61,6 +61,7 @@ async function start() {
   require("./routes/Stat.router")(app);
   require("./routes/Session.router")(app);
   require("./routes/Action.router")(app);
+  require("./routes/General.router")(app);
 
   // Give nuxt middleware to express
   app.use(nuxt.render)

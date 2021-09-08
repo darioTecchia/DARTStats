@@ -1,4 +1,5 @@
 module.exports = mongoose => {
+  const deepPopulate = require('mongoose-deep-populate')(mongoose);
 
   var schema = mongoose.Schema(
     {
@@ -27,6 +28,8 @@ module.exports = mongoose => {
       toJSON: { virtuals: true }
     }
   );
+
+  schema.plugin(deepPopulate);
 
   const Session = mongoose.model("Session", schema);
   return Session;

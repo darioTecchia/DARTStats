@@ -22,6 +22,7 @@ exports.findOne = (req, res) => {
   const id = req.params.id;
 
   Session.findById(id)
+    .deepPopulate("actions")
     .then(data => {
       if (!data)
         res.status(404).send({ message: "Not found Session with id " + id });
