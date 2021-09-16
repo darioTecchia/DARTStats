@@ -93,6 +93,9 @@ module.exports = {
     /*
     ** You can extend webpack config here
     */
+    babel: {
+      compact: true,
+    },
     extend(config, { isDev, isClient }) {
       if (isDev && isClient) {
         config.module.rules.push({

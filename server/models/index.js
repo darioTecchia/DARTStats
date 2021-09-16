@@ -7,6 +7,7 @@ const db = {};
 db.mongoose = mongoose;
 
 db.url = dbConfig.url;
+db.testUrl = dbConfig.testUrl;
 
 db.Stat = require("./Stat.js")(mongoose);
 db.Session = require("./Session.js")(mongoose);
