@@ -12,6 +12,7 @@ module.exports = mongoose => {
       nOfET: Number,
       nOfLOC: Number,
       nOfTotalClasses: Number,
+      nOfTotalMethods: Number,
       kind: String,
       statId: {
         type: mongoose.Schema.Types.ObjectID,

@@ -7,6 +7,7 @@
         <b>Execution time</b>: {{ (session.endTime - session.startTime)/1000 }}s <br>
         <b>User ID</b>: {{session.userId}} <br>
         <b>Total number of classes in the project</b>: {{session.nOfTotalClasses}} <br>
+        <b>Total number of methods in the project</b>: {{session.nOfTotalMethods}} <br>
         <b>Smells found</b>:
         <b-progress class="" :max="session.nOfGF + session.nOfLOC + session.nOfET" show-value>
           <b-progress-bar :value="session.nOfGF" :label="session.nOfGF + ' General Fixture'" variant="success"></b-progress-bar>
