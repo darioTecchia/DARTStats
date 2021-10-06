@@ -32,6 +32,7 @@ exports.create = async (req, res) => {
         "nOfET": s.nOfET,
         "nOfLOC": s.nOfLOC,
         "nOfTotalClasses": s.nOfTotalClasses,
+        "nOfTotalMethods": s.nOfTotalMethods,
         "kind": s.kind,
         "statId": stat._id,
         "actions": []
@@ -55,14 +56,12 @@ exports.create = async (req, res) => {
 
         action.save(action);
       });
-      console.log(session);
       session.save(session);
     });
     await stat.save(stat);
     res.send(stat);
 
   } catch (error) {
-    console.log(error);
     res.status(500).send({
       message:
         error.message || "Some error occurred while creating the Stat."

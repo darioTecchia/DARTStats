@@ -84,3 +84,6 @@ dist
 DS_Store
 **/DS_Store
 .DS_Store
+
+# SENSITIVE DATA
+server/config/db.config.js
