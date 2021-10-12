@@ -5,6 +5,7 @@
     >
       <div class="d-flex w-100 justify-content-between">
         <h5 class="mb-1">Stat {{ stat._id }}</h5>
+        <small>{{$moment(stat.timestamp).format('LL')}}</small>
       </div>
 
       <p class="mb-1">
