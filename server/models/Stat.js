@@ -6,6 +6,7 @@ module.exports = mongoose => {
       id: false,
       nOfExecutionTextual: Number,
       nOfExecutionStructural: Number,
+      timestamp: Number,
       sessions: [{
         type: mongoose.Schema.Types.ObjectID,
         ref: 'Session'

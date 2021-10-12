@@ -10,7 +10,7 @@
       >
         <b-card-text>
           <a href="/stat">
-            <h1>{{general.statCount}}</h1>
+            <h3>{{general.statCount}}</h3>
           </a>
         </b-card-text>
       </b-card>
@@ -24,14 +24,14 @@
       >
         <b-card-text>
           <a href="/session">
-            <h1>
+            <h3>
               {{general.sessionStructuralCount + general.sessionTextualCount}}
               (
                 <span class="text-secondary">{{general.sessionStructuralCount}} S</span>
                 +
                 <span class="text-success">{{general.sessionTextualCount}} T</span>
               )
-            </h1>
+            </h3>
           </a>
         </b-card-text>
       </b-card>
@@ -45,7 +45,7 @@
       >
         <b-card-text>
           <a href="/action">
-            <h1>{{general.actionCount}}</h1>
+            <h3>{{general.actionCount}}</h3>
           </a>
         </b-card-text>
       </b-card>

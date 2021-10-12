@@ -16,6 +16,7 @@ exports.create = async (req, res) => {
   // Create a Stat
   let stat = new Stat({
     "nOfExecutionTextual": req.body.nOfExecutionTextual,
+    "timestamp": req.body.timestamp,
     "nOfExecutionStructural": req.body.nOfExecutionStructural,
     "sessions": []
   });
@@ -79,6 +80,7 @@ exports.create = async (req, res) => {
 exports.findAll = (req, res) => {
   Stat.find()
     .select(["-sessions"])
+    .sort({'timestamp': 'desc'})
     .then(data => {
       res.send(data);
     })
