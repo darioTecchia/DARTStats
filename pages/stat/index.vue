@@ -3,7 +3,7 @@
     <b-card>
       <h2>All Stats</h2>
       <b-list-group>
-        <StatItem v-for="stat in stats.slice(0,5)" :key="stat._id" :stat="stat" />
+        <StatItem v-for="stat in stats" :key="stat._id" :stat="stat" />
       </b-list-group>
     </b-card>
 
