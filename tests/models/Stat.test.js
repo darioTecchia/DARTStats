@@ -1,32 +1,11 @@
 const models = require('../../server/models');
 const Stat = models.Stat;
-const create = require("../../server/controllers/Stat.controller").create;
 const db = require('../db');
-
-const reqBody = require('../body.stub').body;
 
 let stat;
 
-const mockRequest = () => {
-  return {
-    body: reqBody
-  };
-};
-
-const mockResponse = () => {
-  const res = {};
-  res.status = jest.fn().mockReturnValue(res);
-  res.json = jest.fn().mockReturnValue(res);
-  res.send = jest.fn().mockReturnValue(res);
-  return res;
-};
-
 beforeAll(async () => await db.connect())
-beforeEach(async () => {
-  const req = mockRequest();
-  const res = mockResponse();
-  stat = await create(req, res);
-});
+beforeEach(async () => stat = await db.crateStat())
 afterEach(async () => await db.clearDatabase())
 afterAll(async () => await db.closeDatabase())
 

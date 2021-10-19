@@ -1,5 +1,8 @@
 const mongoose = require('mongoose');
 const { MongoMemoryServer } = require('mongodb-memory-server');
+const create = require("../server/controllers/Stat.controller").create;
+
+const reqBody = require('./body.stub').body;
 
 let mongod;
 
@@ -13,6 +16,26 @@ module.exports.connect = async () => {
     poolSize: 10
   };
   await mongoose.connect(uri, mongooseOpts);
+}
+
+const mockRequest = () => {
+  return {
+    body: reqBody
+  };
+};
+
+const mockResponse = () => {
+  const res = {};
+  res.status = jest.fn().mockReturnValue(res);
+  res.json = jest.fn().mockReturnValue(res);
+  res.send = jest.fn().mockReturnValue(res);
+  return res;
+};
+
+module.exports.crateStat = async () => {
+  const req = mockRequest();
+  const res = mockResponse();
+  return await create(req, res);
 }
 
 module.exports.closeDatabase = async () => {
