@@ -19,7 +19,6 @@ describe('General Controller Tests', () => {
     });
     const res = db.mockResponse();
     const general = await GeneralController.general(req, res);
-    console.log(general);
     expect(general).toBeTruthy();
     expect(general.statCount).toBe(1);
     expect(general.sessionStructuralCount).toBe(1);
