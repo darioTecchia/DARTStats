@@ -23,10 +23,17 @@ exports.general = async (req, res) => {
       sessionTextualCount,
       actionCount
     });
-  } catch (err) {
+    return {
+      statCount,
+      sessionStructuralCount,
+      sessionTextualCount,
+      actionCount
+    }
+  } catch (error) {
     res.status(500).send({
       message:
-        err.message || "Some error occurred while retrieving stats."
+        error.message || "Some error occurred while retrieving stats."
     });
+    throw error
   }
 };
