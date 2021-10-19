@@ -18,11 +18,14 @@ module.exports.connect = async () => {
   await mongoose.connect(uri, mongooseOpts);
 }
 
-const mockRequest = () => {
+const mockRequest = (body) => {
   return {
-    body: reqBody
+    body: reqBody,
+    ...body
   };
 };
+
+module.exports.mockRequest = mockRequest;
 
 const mockResponse = () => {
   const res = {};
@@ -31,6 +34,8 @@ const mockResponse = () => {
   res.send = jest.fn().mockReturnValue(res);
   return res;
 };
+
+module.exports.mockResponse = mockResponse;
 
 module.exports.crateStat = async () => {
   const req = mockRequest();
