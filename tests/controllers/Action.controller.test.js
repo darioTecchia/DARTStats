@@ -17,8 +17,8 @@ describe('Action Controller Tests', () => {
   test('findAll', async () => {
     const req = db.mockRequest();
     const res = db.mockResponse();
-    const stats = await ActionController.findAll(req, res);
-    expect(stats).toHaveLength(5);
+    const actions = await ActionController.findAll(req, res);
+    expect(actions).toHaveLength(5);
   })
 
   // test('findOne', async () => {
