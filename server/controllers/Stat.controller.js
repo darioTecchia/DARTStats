@@ -60,6 +60,7 @@ exports.create = async (req, res) => {
     });
     await stat.save(stat);
     res.send(stat);
+    return stat;
 
   } catch (error) {
     res.status(500).send({
