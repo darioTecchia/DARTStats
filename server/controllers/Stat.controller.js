@@ -5,11 +5,6 @@ const Action = db.Action;
 
 // Create and Save a new Stat
 exports.create = async (req, res) => {
-  // Validate request
-  // if (utils.isEmptyObject(req.body)) {
-  //   res.status(400).send({ message: "Content can not be empty!" });
-  //   return;
-  // }
 
   let body = req.body;
 
@@ -61,97 +56,103 @@ exports.create = async (req, res) => {
     });
     await stat.save(stat);
     res.send(stat);
+    return stat;
 
   } catch (error) {
     res.status(500).send({
       message:
         error.message || "Some error occurred while creating the Stat."
     });
+    return null;
   }
-
-  // stat
-  //   .save(stat)
-  //   .then(data => {
-  //     res.send(data);
-  //   })
 };
 
 // Retrieve all Stats from the database.
-exports.findAll = (req, res) => {
-  Stat.find()
-    .select(["-sessions"])
-    .sort({'timestamp': 'desc'})
-    .then(data => {
-      res.send(data);
-    })
-    .catch(err => {
-      res.status(500).send({
-        message:
-          err.message || "Some error occurred while retrieving stats."
-      });
+exports.findAll = async (req, res) => {
+  try {
+    const data = await Stat.find()
+      .sort({ 'timestamp': 'desc' })
+      .select(["-sessions"]);
+    res.send(data);
+    return data;
+  } catch (error) {
+    res.status(500).send({
+      message:
+        error.message || "Some error occurred while retrieving stats."
     });
+    return null;
+  }
 };
 
-exports.findSessionsByStatId = (req, res) => {
+exports.findSessionsByStatId = async (req, res) => {
   const id = req.params.id;
 
-  Session.find({ statId: id })
-    .then(data => {
-      res.send(data)
-    })
-    .catch(err => {
-      res.status(500).send({
-        message:
-          err.message || "Some error occurred while retrieving stats."
-      });
+  try {
+    const data = await Session.find({ statId: id });
+    res.send(data);
+    return data;
+  } catch (error) {
+    res.status(500).send({
+      message:
+        error.message || "Some error occurred while retrieving stats."
     });
+    return null;
+  }
 }
 
-exports.findActionsByStatId = (req, res) => {
+exports.findActionsByStatId = async (req, res) => {
   const id = req.params.id;
 
-  Action.find({ statId: id })
-    .then(data => {
-      res.send(data)
-    })
-    .catch(err => {
-      res.status(500).send({
-        message:
-          err.message || "Some error occurred while retrieving stats."
-      });
+  try {
+    const data = await Action.find({ statId: id })
+    res.send(data);
+    return data;
+
+  } catch (error) {
+    res.status(500).send({
+      message:
+        error.message || "Some error occurred while retrieving stats."
     });
+    return null;
+  }
 }
 
 // Find a single Stat with an id
-exports.findOne = (req, res) => {
+exports.findOne = async (req, res) => {
   const id = req.params.id;
 
-  Stat.findById(id)
-    .deepPopulate("sessions sessions.actions")
-    .then(data => {
-      if (!data)
-        res.status(404).send({ message: "Not found Stat with id " + id });
-      else res.send(data);
-    })
-    .catch(err => {
-      res
-        .status(500)
-        .send({ message: "Error retrieving Stat with id=" + id });
+  try {
+    const data = await Stat.findById(id)
+      .deepPopulate("sessions sessions.actions");
+    if (!data) {
+      res.status(404).send({ message: "Not found Stat with id " + id });
+    } else {
+      res.send(data);
+    }
+    return data;
+  } catch (error) {
+    res.status(500).send({
+      message:
+        error.message || "Some error occurred while retrieving stats."
     });
+    return null;
+  }
 };
 
 // Delete all Stats from the database.
-exports.deleteAll = (req, res) => {
-  Stat.deleteMany({})
-    .then(data => {
-      res.send({
-        message: `${data.deletedCount} Stats were deleted successfully!`
-      });
-    })
-    .catch(err => {
-      res.status(500).send({
-        message:
-          err.message || "Some error occurred while removing all stats."
-      });
+exports.deleteAll = async (req, res) => {
+
+  try {
+    const data = await Stat.deleteMany({});
+    res.send({
+      message: `${data.deletedCount} Stats were deleted successfully!`
     });
+    return { deleted: data.deletedCount };
+  } catch (error) {
+    res.status(500).send({
+      message:
+        err.message || "Some error occurred while removing all stats."
+    });
+    return null;
+  }
 };
