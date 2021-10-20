@@ -21,33 +21,15 @@ describe('Session Controller Tests', () => {
     expect(sessions).toHaveLength(2);
   })
 
-  // test('findOne', async () => {
-
-
-  //   const req = db.mockRequest({
-  //     params: {
-  //       id: stat._id
-  //     }
-  //   });
-  //   const res = db.mockResponse();
-  //   const singleStat = await SessionController.findOne(req, res);
-  //   expect(singleStat).toBeTruthy();
-  //   expect(singleStat.sessions).toHaveLength(2);
-  //   expect(singleStat.nOfExecutionTextual).toBe(1);
-  //   expect(singleStat.nOfExecutionStructural).toBe(1);
-  //   expect(singleStat.nOfTotalExecution).toBe(2);
-  // })
-
   test('findOne [wrong ID]', async () => {
     const req = db.mockRequest({
       params: {
-        id: '616eeebed5c7c34614c36fba'
+        id: '41224d776a326fb40f000001'
       }
     });
     const res = db.mockResponse();
-    await expect(SessionController.findOne(req, res))
-      .rejects
-      .toThrow()
+    const result = await SessionController.findOne(req, res);
+    expect(result).toBeNull();
   })
 
   test('findOne [invalid ID]', async () => {
