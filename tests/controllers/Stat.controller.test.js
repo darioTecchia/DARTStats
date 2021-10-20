@@ -120,7 +120,6 @@ describe('Statistics Controller Tests', () => {
     });
     const res = db.mockResponse();
     const result = await StatController.findOne(req, res);
-    console.log();
     expect(result).toBeNull();
   })
 
