@@ -58,9 +58,8 @@ describe('Statistics Controller Tests', () => {
       }
     });
     const res = db.mockResponse();
-    await expect(StatController.findSessionsByStatId(req, res))
-      .rejects
-      .toThrow()
+    const result = await StatController.findSessionsByStatId(req, res);
+    expect(result).toBeNull();
   })
 
   test('findActionsByStatId', async () => {
@@ -92,9 +91,8 @@ describe('Statistics Controller Tests', () => {
       }
     });
     const res = db.mockResponse();
-    await expect(StatController.findActionsByStatId(req, res))
-      .rejects
-      .toThrow()
+    const result = await StatController.findActionsByStatId(req, res);
+    expect(result).toBeNull();
   })
 
   test('findOne', async () => {
@@ -130,9 +128,8 @@ describe('Statistics Controller Tests', () => {
       }
     });
     const res = db.mockResponse();
-    await expect(StatController.findOne(req, res))
-      .rejects
-      .toThrow()
+    const result = await StatController.findOne(req, res);
+    expect(result).toBeNull();
   })
 
   test('deleteAll', async () => {

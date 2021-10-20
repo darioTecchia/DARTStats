@@ -62,6 +62,7 @@ exports.create = async (req, res) => {
       message:
         error.message || "Some error occurred while creating the Stat."
     });
+    return null;
   }
 };
 
@@ -77,7 +78,7 @@ exports.findAll = async (req, res) => {
       message:
         error.message || "Some error occurred while retrieving stats."
     });
-    throw error;
+    return null;
   }
 };
 
@@ -93,7 +94,7 @@ exports.findSessionsByStatId = async (req, res) => {
       message:
         error.message || "Some error occurred while retrieving stats."
     });
-    throw error;
+    return null;
   }
 }
 
@@ -110,7 +111,7 @@ exports.findActionsByStatId = async (req, res) => {
       message:
         error.message || "Some error occurred while retrieving stats."
     });
-    throw error;
+    return null;
   }
 }
 
@@ -132,7 +133,7 @@ exports.findOne = async (req, res) => {
       message:
         error.message || "Some error occurred while retrieving stats."
     });
-    throw error;
+    return null;
   }
 };
 
@@ -150,6 +151,6 @@ exports.deleteAll = async (req, res) => {
       message:
         err.message || "Some error occurred while removing all stats."
     });
-    throw error;
+    return null;
   }
 };
