@@ -19,9 +19,7 @@ module.exports.connect = async () => {
     poolSize: 10
   };
   await mongoose.connect(uri, mongooseOpts);
-  return await app.listen(PORT, () => {
-    console.log("Server has started!");
-  });
+  return app;
 }
 
 const mockRequest = (body) => {
