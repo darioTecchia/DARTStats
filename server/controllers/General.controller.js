@@ -34,6 +34,6 @@ exports.general = async (req, res) => {
       message:
         error.message || "Some error occurred while retrieving stats."
     });
-    throw error
+    return null;
   }
 };
