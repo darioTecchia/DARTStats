@@ -123,11 +123,10 @@ exports.findOne = async (req, res) => {
       .deepPopulate("sessions sessions.actions");
     if (!data) {
       res.status(404).send({ message: "Not found Stat with id " + id });
-      throw new Error("Not found Stat with id " + id);
     } else {
       res.send(data);
-      return data;
     }
+    return data;
   } catch (error) {
     res.status(500).send({
       message:
