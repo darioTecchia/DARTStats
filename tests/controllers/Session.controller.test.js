@@ -39,9 +39,8 @@ describe('Session Controller Tests', () => {
       }
     });
     const res = db.mockResponse();
-    await expect(SessionController.findOne(req, res))
-      .rejects
-      .toThrow()
+    const result = await SessionController.findOne(req, res)
+    expect(result).toBeNull();
   })
 
   test('deleteAll', async () => {
