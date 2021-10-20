@@ -41,13 +41,12 @@ describe('Action Controller Tests', () => {
   test('findOne [wrong ID]', async () => {
     const req = db.mockRequest({
       params: {
-        id: '616eeebed5c7c34614c36fba'
+        id: '41224d776a326fb40f000001'
       }
     });
     const res = db.mockResponse();
-    await expect(ActionController.findOne(req, res))
-      .rejects
-      .toThrow()
+    const result = await ActionController.findOne(req, res);
+    expect(result).toBeNull();
   })
 
   test('findOne [invalid ID]', async () => {

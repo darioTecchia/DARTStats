@@ -27,12 +27,11 @@ exports.findOne = async (req, res) => {
     const data = await Action.findById(id);
     if (!data) {
       res.status(404).send({ message: "Not found Action with id " + id });
-      throw new Error("Not found Action with id " + id)
     }
     else {
       res.send(data);
-      return data;
     }
+    return data;
   } catch (error) {
     res.status(500).send({ message: "Error retrieving Action with id=" + id });
     throw error;
