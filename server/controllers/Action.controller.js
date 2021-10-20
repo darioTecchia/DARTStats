@@ -15,7 +15,7 @@ exports.findAll = async (req, res) => {
       message:
         error.message || "Some error occurred while retrieving stats."
     });
-    throw error;
+    return null;
   }
 };
 
@@ -34,7 +34,7 @@ exports.findOne = async (req, res) => {
     return data;
   } catch (error) {
     res.status(500).send({ message: "Error retrieving Action with id=" + id });
-    throw error;
+    return null;
   }
 };
 
@@ -52,6 +52,6 @@ exports.deleteAll = async (req, res) => {
       message:
         error.message || "Some error occurred while removing all stats."
     });
-    throw error;
+    return null;
   }
 };

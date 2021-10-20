@@ -56,9 +56,8 @@ describe('Action Controller Tests', () => {
       }
     });
     const res = db.mockResponse();
-    await expect(ActionController.findOne(req, res))
-      .rejects
-      .toThrow()
+    const result = await ActionController.findOne(req, res);
+    expect(result).toBeNull();
   })
 
   test('deleteAll', async () => {
