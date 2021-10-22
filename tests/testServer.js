@@ -5,7 +5,7 @@ const mongoose = require('mongoose');
 const { MongoMemoryServer } = require('mongodb-memory-server');
 const create = require("../server/controllers/Stat.controller").create;
 
-const reqBody = require('./body.stub').body;
+const reqBody = require('./body.stub');
 
 let mongod;
 
@@ -23,10 +23,7 @@ module.exports.connect = async () => {
 }
 
 const mockRequest = (body) => {
-  return {
-    body: reqBody,
-    ...body
-  };
+  return body || {}
 };
 
 module.exports.mockRequest = mockRequest;
@@ -42,7 +39,7 @@ const mockResponse = () => {
 module.exports.mockResponse = mockResponse;
 
 module.exports.crateStat = async () => {
-  const req = mockRequest();
+  const req = mockRequest(reqBody);
   const res = mockResponse();
   return await create(req, res);
 }
