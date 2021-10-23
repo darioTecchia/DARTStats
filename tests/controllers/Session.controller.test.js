@@ -8,13 +8,13 @@ const scaffold = require('../scaffold');
 let stat, session;
 
 beforeAll(async () => await scaffold.connect())
-beforeEach(async () => stat = await scaffold.crateStat())
+beforeEach(async () => stat = await scaffold.populateDb())
 afterEach(async () => await scaffold.clearDatabase())
 afterAll(async () => await scaffold.closeDatabase())
 
 describe('Session Find Controller Tests', () => {
   beforeEach(async () => {
-    stat = await scaffold.crateStat()
+    stat = await scaffold.populateDb()
     session = new Session({
       "userId": "851B0DF4C83AAC9273C014C57B127AF7",
       "projectName": "SorrentoMarina",

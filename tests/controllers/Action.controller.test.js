@@ -8,13 +8,13 @@ const scaffold = require('../scaffold');
 let stat, action;
 
 beforeAll(async () => await scaffold.connect())
-beforeEach(async () => stat = await scaffold.crateStat())
+beforeEach(async () => stat = await scaffold.populateDb())
 afterEach(async () => await scaffold.clearDatabase())
 afterAll(async () => await scaffold.closeDatabase())
 
 describe('Action Find Controller Tests', () => {
   beforeEach(async () => {
-    stat = await scaffold.crateStat()
+    stat = await scaffold.populateDb()
     action = new Action({
       "actionKind": "REFACTORING_PREVIEW",
       "smellKind": "GENERAL_FIXTURE",

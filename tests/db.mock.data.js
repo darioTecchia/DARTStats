@@ -1,4 +1,4 @@
-exports.body = {
+exports.dbDefault = {
   "sessions": [
     {
       "actions": [
@@ -67,6 +67,49 @@ exports.body = {
           "actionDone": true
         }
       ],
+      "userId": "14-7D-DA-9D-D0-16",
+      "ID": "9180E70ED3069AFD094CB89A69207D23",
+      "projectName": "SorrentoMarina",
+      "startTime": 1630919722840,
+      "endTime": 1630919756600,
+      "nOfGF": 0,
+      "nOfET": 9,
+      "nOfLOC": 16,
+      "nOfTotalClasses": 168,
+      "kind": "Structural"
+    }
+  ],
+  "lastSessionID": "9180E70ED3069AFD094CB89A69207D23",
+  "nOfExecutionTextual": 1,
+  "nOfExecutionStructural": 1,
+  "FILE_PATH": "/Users/dariotecchia/Documents/dev/SorrentoMarina/stats.json"
+}
+
+exports.dbNoSessionNoActions = {
+  "sessions": [],
+  "lastSessionID": "9180E70ED3069AFD094CB89A69207D23",
+  "nOfExecutionTextual": 1,
+  "nOfExecutionStructural": 1,
+  "FILE_PATH": "/Users/dariotecchia/Documents/dev/SorrentoMarina/stats.json"
+}
+
+exports.dbNoActions = {
+  "sessions": [
+    {
+      "actions": [],
+      "userId": "14-7D-DA-9D-D0-16",
+      "ID": "851B0DF4C83AAC9273C014C57B127AF7",
+      "projectName": "SorrentoMarina",
+      "startTime": 1630919595704,
+      "endTime": 1630919638780,
+      "nOfGF": 61,
+      "nOfET": 27,
+      "nOfLOC": 61,
+      "nOfTotalClasses": 167,
+      "kind": "Textual"
+    },
+    {
+      "actions": [],
       "userId": "14-7D-DA-9D-D0-16",
       "ID": "9180E70ED3069AFD094CB89A69207D23",
       "projectName": "SorrentoMarina",

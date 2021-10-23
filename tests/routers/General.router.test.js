@@ -4,7 +4,7 @@ const supertest = require('supertest');
 let stat, app;
 
 beforeAll(async () => app = await serverScaffold.connect())
-beforeEach(async () => stat = await serverScaffold.crateStat())
+beforeEach(async () => stat = await serverScaffold.populateDb())
 afterEach(async () => await serverScaffold.clearDatabase())
 afterAll(async () => await serverScaffold.closeDatabase())
 

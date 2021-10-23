@@ -8,7 +8,7 @@ const scaffold = require('../scaffold');
 let stat;
 
 beforeAll(async () => await scaffold.connect())
-beforeEach(async () => stat = await scaffold.crateStat())
+beforeEach(async () => stat = await scaffold.populateDb())
 afterEach(async () => await scaffold.clearDatabase())
 afterAll(async () => await scaffold.closeDatabase())
 
