@@ -3,18 +3,18 @@ const Session = models.Session;
 
 const SessionController = require("../../server/controllers/Session.controller");
 
-const db = require('../db');
+const scaffold = require('../scaffold');
 
 let stat, session;
 
-beforeAll(async () => await db.connect())
-beforeEach(async () => stat = await db.crateStat())
-afterEach(async () => await db.clearDatabase())
-afterAll(async () => await db.closeDatabase())
+beforeAll(async () => await scaffold.connect())
+beforeEach(async () => stat = await scaffold.crateStat())
+afterEach(async () => await scaffold.clearDatabase())
+afterAll(async () => await scaffold.closeDatabase())
 
 describe('Session Find Controller Tests', () => {
   beforeEach(async () => {
-    stat = await db.crateStat()
+    stat = await scaffold.crateStat()
     session = new Session({
       "userId": "851B0DF4C83AAC9273C014C57B127AF7",
       "projectName": "SorrentoMarina",
@@ -35,12 +35,12 @@ describe('Session Find Controller Tests', () => {
   });
 
   test('findOne', async () => {
-    const req = db.mockRequest({
+    const req = scaffold.mockRequest({
       params: {
         id: session._id
       }
     });
-    const res = db.mockResponse();
+    const res = scaffold.mockResponse();
     const singleSession = await SessionController.findOne(req, res);
     expect(singleSession).toBeTruthy();
     expect(singleSession.userId).toBe("851B0DF4C83AAC9273C014C57B127AF7");
@@ -60,37 +60,37 @@ describe('Session Find Controller Tests', () => {
 describe('Session Controller Tests', () => {
 
   test('findAll', async () => {
-    const req = db.mockRequest();
-    const res = db.mockResponse();
+    const req = scaffold.mockRequest();
+    const res = scaffold.mockResponse();
     const sessions = await SessionController.findAll(req, res);
     expect(sessions).toHaveLength(2);
   })
 
   test('findOne [wrong ID]', async () => {
-    const req = db.mockRequest({
+    const req = scaffold.mockRequest({
       params: {
         id: '41224d776a326fb40f000001'
       }
     });
-    const res = db.mockResponse();
+    const res = scaffold.mockResponse();
     const result = await SessionController.findOne(req, res);
     expect(result).toBeNull();
   })
 
   test('findOne [invalid ID]', async () => {
-    const req = db.mockRequest({
+    const req = scaffold.mockRequest({
       params: {
         id: '123'
       }
     });
-    const res = db.mockResponse();
+    const res = scaffold.mockResponse();
     const result = await SessionController.findOne(req, res)
     expect(result).toBeNull();
   })
 
   test('deleteAll', async () => {
-    const req = db.mockRequest();
-    const res = db.mockResponse();
+    const req = scaffold.mockRequest();
+    const res = scaffold.mockResponse();
     const response = await SessionController.deleteAll(req, res);
     expect(response).toMatchObject({ deleted: 2 });
   })

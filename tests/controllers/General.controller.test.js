@@ -1,23 +1,23 @@
 const GeneralController = require("../../server/controllers/General.controller");
 
-const db = require('../db');
+const scaffold = require('../scaffold');
 
 let stat;
 
-beforeAll(async () => await db.connect())
-beforeEach(async () => stat = await db.crateStat())
-afterEach(async () => await db.clearDatabase())
-afterAll(async () => await db.closeDatabase())
+beforeAll(async () => await scaffold.connect())
+beforeEach(async () => stat = await scaffold.crateStat())
+afterEach(async () => await scaffold.clearDatabase())
+afterAll(async () => await scaffold.closeDatabase())
 
 describe('General Controller Tests', () => {
 
   test('general', async () => {
-    const req = db.mockRequest({
+    const req = scaffold.mockRequest({
       params: {
         id: stat._id
       }
     });
-    const res = db.mockResponse();
+    const res = scaffold.mockResponse();
     const general = await GeneralController.general(req, res);
     expect(general).toBeTruthy();
     expect(general.statCount).toBe(1);

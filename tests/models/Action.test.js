@@ -1,13 +1,13 @@
 const models = require('../../server/models');
 const Action = models.Action;
-const db = require('../db');
+const scaffold = require('../scaffold');
 
 let stat;
 
-beforeAll(async () => await db.connect())
-beforeEach(async () => stat = await db.crateStat())
-afterEach(async () => await db.clearDatabase())
-afterAll(async () => await db.closeDatabase())
+beforeAll(async () => await scaffold.connect())
+beforeEach(async () => stat = await scaffold.crateStat())
+afterEach(async () => await scaffold.clearDatabase())
+afterAll(async () => await scaffold.closeDatabase())
 
 describe('Actions DAO find tests', () => {
   test('Find all', async () => {

@@ -3,18 +3,18 @@ const Action = models.Action;
 
 const ActionController = require("../../server/controllers/Action.controller");
 
-const db = require('../db');
+const scaffold = require('../scaffold');
 
 let stat, action;
 
-beforeAll(async () => await db.connect())
-beforeEach(async () => stat = await db.crateStat())
-afterEach(async () => await db.clearDatabase())
-afterAll(async () => await db.closeDatabase())
+beforeAll(async () => await scaffold.connect())
+beforeEach(async () => stat = await scaffold.crateStat())
+afterEach(async () => await scaffold.clearDatabase())
+afterAll(async () => await scaffold.closeDatabase())
 
 describe('Action Find Controller Tests', () => {
   beforeEach(async () => {
-    stat = await db.crateStat()
+    stat = await scaffold.crateStat()
     action = new Action({
       "actionKind": "REFACTORING_PREVIEW",
       "smellKind": "GENERAL_FIXTURE",
@@ -31,12 +31,12 @@ describe('Action Find Controller Tests', () => {
   });
 
   test('findOne', async () => {
-    const req = db.mockRequest({
+    const req = scaffold.mockRequest({
       params: {
         id: action._id
       }
     });
-    const res = db.mockResponse();
+    const res = scaffold.mockResponse();
     const singleAction = await ActionController.findOne(req, res);
     expect(singleAction).toBeTruthy();
     expect(singleAction.actionKind).toBe("REFACTORING_PREVIEW");
@@ -55,37 +55,37 @@ describe('Action Find Controller Tests', () => {
 describe('Action Controller Tests', () => {
 
   test('findAll', async () => {
-    const req = db.mockRequest();
-    const res = db.mockResponse();
+    const req = scaffold.mockRequest();
+    const res = scaffold.mockResponse();
     const actions = await ActionController.findAll(req, res);
     expect(actions).toHaveLength(5);
   })
 
   test('findOne [wrong ID]', async () => {
-    const req = db.mockRequest({
+    const req = scaffold.mockRequest({
       params: {
         id: '41224d776a326fb40f000001'
       }
     });
-    const res = db.mockResponse();
+    const res = scaffold.mockResponse();
     const result = await ActionController.findOne(req, res);
     expect(result).toBeNull();
   })
 
   test('findOne [invalid ID]', async () => {
-    const req = db.mockRequest({
+    const req = scaffold.mockRequest({
       params: {
         id: '123'
       }
     });
-    const res = db.mockResponse();
+    const res = scaffold.mockResponse();
     const result = await ActionController.findOne(req, res);
     expect(result).toBeNull();
   })
 
   test('deleteAll', async () => {
-    const req = db.mockRequest();
-    const res = db.mockResponse();
+    const req = scaffold.mockRequest();
+    const res = scaffold.mockResponse();
     const response = await ActionController.deleteAll(req, res);
     expect(response).toMatchObject({ deleted: 5 });
   })

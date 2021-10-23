@@ -1,12 +1,12 @@
-const testServer = require('../testServer');
+const serverScaffold = require('../serverScaffold');
 const supertest = require('supertest');
 
 let stat, app;
 
-beforeAll(async () => app = await testServer.connect())
-beforeEach(async () => stat = await testServer.crateStat())
-afterEach(async () => await testServer.clearDatabase())
-afterAll(async () => await testServer.closeDatabase())
+beforeAll(async () => app = await serverScaffold.connect())
+beforeEach(async () => stat = await serverScaffold.crateStat())
+afterEach(async () => await serverScaffold.clearDatabase())
+afterAll(async () => await serverScaffold.closeDatabase())
 
 describe('Statistics API Tests', () => {
   test('GET /api/action', async () => {
