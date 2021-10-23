@@ -1,12 +1,51 @@
+const models = require('../../server/models');
+const Action = models.Action;
+
 const serverScaffold = require('../serverScaffold');
 const supertest = require('supertest');
 
-let stat, app;
+let stat, action, app;
 
 beforeAll(async () => app = await serverScaffold.connect())
 beforeEach(async () => stat = await serverScaffold.populateDb())
 afterEach(async () => await serverScaffold.clearDatabase())
 afterAll(async () => await serverScaffold.closeDatabase())
+
+describe('Statistics API Find Test', () => {
+  beforeEach(async () => {
+    stat = await serverScaffold.populateDb()
+    action = new Action({
+      "actionKind": "REFACTORING_PREVIEW",
+      "smellKind": "GENERAL_FIXTURE",
+      "timestamp": 0,
+      "className": "TestCreazioneAnnuncio",
+      "methodName": "testCreazioneAnnuncio",
+      "packageName": "gestioneAnnuncio",
+      "actionCanceled": false,
+      "actionDone": true,
+      "statId": stat._id.toString(),
+      "sessionId": "41224d776a326fb40f000001"
+    });
+    await action.save(action);
+  });
+
+  test('GET /api/action/:id', async () => {
+    const response = await supertest(app)
+      .get('/api/action/' + action._id.toString())
+      .expect(200)
+    expect(response.body).toBeTruthy();
+    expect(response.body.actionKind).toBe("REFACTORING_PREVIEW");
+    expect(response.body.smellKind).toBe("GENERAL_FIXTURE");
+    expect(response.body.timestamp).toBe(0);
+    expect(response.body.className).toBe("TestCreazioneAnnuncio");
+    expect(response.body.methodName).toBe("testCreazioneAnnuncio");
+    expect(response.body.packageName).toBe("gestioneAnnuncio");
+    expect(response.body.actionCanceled).toBe(false);
+    expect(response.body.actionDone).toBe(true);
+    expect(response.body.statId.toString()).toBe(stat._id.toString());
+    expect(response.body.sessionId.toString()).toBe("41224d776a326fb40f000001");
+  })
+})
 
 describe('Statistics API Tests', () => {
   test('GET /api/action', async () => {
@@ -15,17 +54,6 @@ describe('Statistics API Tests', () => {
       .expect(200)
     expect(response.body).toHaveLength(5);
   })
-
-  // test('GET /api/action/:id', async () => {
-  //   const response = await supertest(app)
-  //     .get('/api/action/' + stat._id.toString())
-  //     .expect(200)
-  //   expect(response.body).toBeTruthy();
-  //   expect(response.body.sessions).toHaveLength(2);
-  //   expect(response.body.nOfExecutionTextual).toBe(1);
-  //   expect(response.body.nOfExecutionStructural).toBe(1);
-  //   expect(response.body.nOfTotalExecution).toBe(2);
-  // })
 
   test('GET /api/action/:id [wrong ID]', async () => {
     const response = await supertest(app)
