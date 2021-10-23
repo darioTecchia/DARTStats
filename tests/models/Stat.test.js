@@ -36,12 +36,6 @@ describe('Statistics DAO delete tests', () => {
     const stats = await Stat.find();
     expect(stats).toHaveLength(0);
   })
-
-  test('Delete one by ID', async () => {
-    await Stat.deleteMany({ _id: stat._id.toString() });
-    const stats = await Stat.find();
-    expect(stats).toHaveLength(0);
-  })
 })
 
 describe('Statistics DAO creation tests', () => {
