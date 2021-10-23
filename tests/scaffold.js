@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const { MongoMemoryServer } = require('mongodb-memory-server');
 const create = require("../server/controllers/Stat.controller").create;
 
-const defaultDbMock = require('./db.mock.data');
+const { dbDefault } = require('./db.mock.data');
 
 let mongod;
 
@@ -36,7 +36,7 @@ module.exports.mockResponse = mockResponse;
 
 module.exports.populateDb = async (dbMock) => {
   const req = mockRequest({
-    body: dbMock || defaultDbMock.dbDefault
+    body: dbMock || dbDefault
   });
   const res = mockResponse();
   return await create(req, res);
