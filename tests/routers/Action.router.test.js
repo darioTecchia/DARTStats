@@ -11,7 +11,7 @@ beforeEach(async () => stat = await serverScaffold.populateDb())
 afterEach(async () => await serverScaffold.clearDatabase())
 afterAll(async () => await serverScaffold.closeDatabase())
 
-describe('Statistics API Find Test', () => {
+describe('Action API Find Test', () => {
   beforeEach(async () => {
     stat = await serverScaffold.populateDb()
     action = new Action({
@@ -47,7 +47,7 @@ describe('Statistics API Find Test', () => {
   })
 })
 
-describe('Statistics API Tests', () => {
+describe('Action API Tests', () => {
   test('GET /api/action', async () => {
     const response = await supertest(app)
       .get('/api/action')

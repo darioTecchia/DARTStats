@@ -8,7 +8,7 @@ beforeEach(async () => stat = await serverScaffold.populateDb())
 afterEach(async () => await serverScaffold.clearDatabase())
 afterAll(async () => await serverScaffold.closeDatabase())
 
-describe('Statistics API Tests', () => {
+describe('Session API Tests', () => {
   test('GET /api/action', async () => {
     const response = await supertest(app)
       .get('/api/action')
