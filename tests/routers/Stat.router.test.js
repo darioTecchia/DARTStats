@@ -3,7 +3,7 @@ const supertest = require('supertest');
 const models = require('../../server/models');
 const Stat = models.Stat;
 
-const reqBody = require('../db.mock.data').body;
+const reqBody = require('../db.mock.data').dbDefault;
 
 let stat, app;
 
