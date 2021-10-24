@@ -35,12 +35,10 @@ describe('Statistics Controller Tests', () => {
     const res = scaffold.mockResponse();
     const singleStat = await StatController.findOne(req, res);
     expect(singleStat).toBeTruthy();
-    expect(singleStat.sessions).toHaveLength(0);
+    expect(singleStat.sessions).toHaveLength(singleStat.nOfExecutionTextual + singleStat.nOfExecutionStructural);
     expect(singleStat.nOfExecutionTextual).toBe(0);
     expect(singleStat.nOfExecutionStructural).toBe(0);
-    expect(singleStat.nOfExecutionTextual + singleStat.nOfExecutionStructural).toBe(0);
-    expect(singleStat.nOfTotalExecution).toBe(0);
-    expect(singleStat.nOfTotalExecution).toEqual(singleStat.sessions.length);
+    expect(singleStat.nOfTotalExecution).toBe(singleStat.nOfExecutionTextual + singleStat.nOfExecutionStructural);
   })
 })
 
@@ -138,12 +136,10 @@ describe('Statistics Controller Tests', () => {
     const res = scaffold.mockResponse();
     const singleStat = await StatController.findOne(req, res);
     expect(singleStat).toBeTruthy();
-    expect(singleStat.sessions).toHaveLength(2);
+    expect(singleStat.sessions).toHaveLength(singleStat.nOfExecutionTextual + singleStat.nOfExecutionStructural);
     expect(singleStat.nOfExecutionTextual).toBe(1);
     expect(singleStat.nOfExecutionStructural).toBe(1);
-    expect(singleStat.nOfExecutionTextual + singleStat.nOfExecutionStructural).toBe(2);
-    expect(singleStat.nOfTotalExecution).toBe(2);
-    expect(singleStat.nOfTotalExecution).toEqual(singleStat.sessions.length);
+    expect(singleStat.nOfTotalExecution).toBe(singleStat.nOfExecutionTextual + singleStat.nOfExecutionStructural);
   })
 
   test('findOne [wrong ID]', async () => {

@@ -28,10 +28,10 @@ describe('Statistics DAO tests', () => {
   test('Find one by ID', async () => {
     const singleStat = await Stat.findById(stat._id.toString());
     expect(singleStat).toBeTruthy();
-    expect(singleStat.sessions).toHaveLength(2);
+    expect(singleStat.sessions).toHaveLength(singleStat.nOfExecutionTextual + singleStat.nOfExecutionStructural);
     expect(singleStat.nOfExecutionTextual).toBe(1);
     expect(singleStat.nOfExecutionStructural).toBe(1);
-    expect(singleStat.nOfTotalExecution).toBe(2);
+    expect(singleStat.nOfTotalExecution).toBe(singleStat.nOfExecutionTextual + singleStat.nOfExecutionStructural);
   })
 
   test('Find one by ID (wrong ID)', async () => {
@@ -57,15 +57,15 @@ describe('Statistics DAO tests', () => {
     let newStat = new Stat({
       "nOfExecutionTextual": 2,
       "nOfExecutionStructural": 1,
-      "sessions": ['616ed60360278d2d183fc111', '616ed60360278d2d183fc112']
+      "sessions": ['616ed60360278d2d183fc111', '616ed60360278d2d183fc112', '616ed60360278d2d183fc113']
     });
     await newStat.save(newStat);
 
     const singleStat = await Stat.findById(newStat._id.toString());
     expect(singleStat).toBeTruthy();
-    expect(singleStat.sessions).toHaveLength(2);
+    expect(singleStat.sessions).toHaveLength(singleStat.nOfExecutionTextual + singleStat.nOfExecutionStructural);
     expect(singleStat.nOfExecutionTextual).toBe(2);
     expect(singleStat.nOfExecutionStructural).toBe(1);
-    expect(singleStat.nOfTotalExecution).toBe(3);
+    expect(singleStat.nOfTotalExecution).toBe(singleStat.nOfExecutionTextual + singleStat.nOfExecutionStructural);
   })
 })
