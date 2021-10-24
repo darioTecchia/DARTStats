@@ -4,15 +4,49 @@ const Stat = models.Stat;
 const StatController = require("../../server/controllers/Stat.controller");
 
 const scaffold = require('../scaffold');
+const { dbNoSessionNoActions } = require('../db.mock.data');
 
 let stat;
 
 beforeAll(async () => await scaffold.connect())
-beforeEach(async () => stat = await scaffold.populateDb())
 afterEach(async () => await scaffold.clearDatabase())
 afterAll(async () => await scaffold.closeDatabase())
 
 describe('Statistics Controller Tests', () => {
+  beforeEach(async () => stat = await scaffold.populateDb({}))
+
+  test('findAll [No stats]', async () => {
+    const req = scaffold.mockRequest();
+    const res = scaffold.mockResponse();
+    const stats = await StatController.findAll(req, res);
+    expect(stats).toHaveLength(0);
+  })
+})
+
+describe('Statistics Controller Tests', () => {
+  beforeEach(async () => stat = await scaffold.populateDb(dbNoSessionNoActions))
+
+  test('findOne [no actions no sessions]', async () => {
+    const req = scaffold.mockRequest({
+      params: {
+        id: stat._id
+      }
+    });
+    const res = scaffold.mockResponse();
+    const singleStat = await StatController.findOne(req, res);
+    expect(singleStat).toBeTruthy();
+    expect(singleStat.sessions).toHaveLength(0);
+    expect(singleStat.nOfExecutionTextual).toBe(0);
+    expect(singleStat.nOfExecutionStructural).toBe(0);
+    expect(singleStat.nOfExecutionTextual + singleStat.nOfExecutionStructural).toBe(0);
+    expect(singleStat.nOfTotalExecution).toBe(0);
+    expect(singleStat.nOfTotalExecution).toEqual(singleStat.sessions.length);
+  })
+})
+
+describe('Statistics Controller Tests', () => {
+  beforeEach(async () => stat = await scaffold.populateDb())
+
   test('create', async () => {
     const singleStat = await Stat.findById(stat._id.toString());
     expect(singleStat).toBeTruthy();
@@ -107,7 +141,9 @@ describe('Statistics Controller Tests', () => {
     expect(singleStat.sessions).toHaveLength(2);
     expect(singleStat.nOfExecutionTextual).toBe(1);
     expect(singleStat.nOfExecutionStructural).toBe(1);
+    expect(singleStat.nOfExecutionTextual + singleStat.nOfExecutionStructural).toBe(2);
     expect(singleStat.nOfTotalExecution).toBe(2);
+    expect(singleStat.nOfTotalExecution).toEqual(singleStat.sessions.length);
   })
 
   test('findOne [wrong ID]', async () => {

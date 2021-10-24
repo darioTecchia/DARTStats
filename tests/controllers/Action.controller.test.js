@@ -4,15 +4,15 @@ const Action = models.Action;
 const ActionController = require("../../server/controllers/Action.controller");
 
 const scaffold = require('../scaffold');
+const { dbNoActions } = require('../db.mock.data');
 
 let stat, action;
 
 beforeAll(async () => await scaffold.connect())
-beforeEach(async () => stat = await scaffold.populateDb())
 afterEach(async () => await scaffold.clearDatabase())
 afterAll(async () => await scaffold.closeDatabase())
 
-describe('Action Find Controller Tests', () => {
+describe('Action Controller Tests', () => {
   beforeEach(async () => {
     stat = await scaffold.populateDb()
     action = new Action({
@@ -53,6 +53,18 @@ describe('Action Find Controller Tests', () => {
 })
 
 describe('Action Controller Tests', () => {
+  beforeEach(async () => await scaffold.populateDb(dbNoActions))
+
+  test('findAll [No actions]', async () => {
+    const req = scaffold.mockRequest();
+    const res = scaffold.mockResponse();
+    const actions = await ActionController.findAll(req, res);
+    expect(actions).toHaveLength(0);
+  })
+})
+
+describe('Action Controller Tests', () => {
+  beforeEach(async () => stat = await scaffold.populateDb())
 
   test('findAll', async () => {
     const req = scaffold.mockRequest();

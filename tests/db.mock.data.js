@@ -88,8 +88,8 @@ exports.dbDefault = {
 exports.dbNoSessionNoActions = {
   "sessions": [],
   "lastSessionID": "9180E70ED3069AFD094CB89A69207D23",
-  "nOfExecutionTextual": 1,
-  "nOfExecutionStructural": 1,
+  "nOfExecutionTextual": 0,
+  "nOfExecutionStructural": 0,
   "FILE_PATH": "/Users/dariotecchia/Documents/dev/SorrentoMarina/stats.json"
 }
 

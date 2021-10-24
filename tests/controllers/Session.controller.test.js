@@ -4,15 +4,26 @@ const Session = models.Session;
 const SessionController = require("../../server/controllers/Session.controller");
 
 const scaffold = require('../scaffold');
+const { dbNoSessionNoActions } = require('../db.mock.data');
 
 let stat, session;
 
 beforeAll(async () => await scaffold.connect())
-beforeEach(async () => stat = await scaffold.populateDb())
 afterEach(async () => await scaffold.clearDatabase())
 afterAll(async () => await scaffold.closeDatabase())
 
-describe('Session Find Controller Tests', () => {
+describe('Session Controller Tests', () => {
+  beforeEach(async () => await scaffold.populateDb(dbNoSessionNoActions))
+
+  test('findAll [No sessions]', async () => {
+    const req = scaffold.mockRequest();
+    const res = scaffold.mockResponse();
+    const sessions = await SessionController.findAll(req, res);
+    expect(sessions).toHaveLength(0);
+  })
+})
+
+describe('Session Controller Tests', () => {
   beforeEach(async () => {
     stat = await scaffold.populateDb()
     session = new Session({
@@ -58,6 +69,7 @@ describe('Session Find Controller Tests', () => {
 })
 
 describe('Session Controller Tests', () => {
+  beforeEach(async () => stat = await scaffold.populateDb())
 
   test('findAll', async () => {
     const req = scaffold.mockRequest();
