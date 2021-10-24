@@ -5,11 +5,21 @@ const scaffold = require('../scaffold');
 let stat;
 
 beforeAll(async () => await scaffold.connect())
-beforeEach(async () => stat = await scaffold.populateDb())
 afterEach(async () => await scaffold.clearDatabase())
 afterAll(async () => await scaffold.closeDatabase())
 
-describe('Statistics DAO find tests', () => {
+describe('Statistics DAO tests', () => {
+  beforeEach(async () => await scaffold.populateDb({}))
+
+  test('Find all [No stat]', async () => {
+    const stats = await Stat.find();
+    expect(stats).toHaveLength(0);
+  })
+});
+
+describe('Statistics DAO tests', () => {
+  beforeEach(async () => stat = await scaffold.populateDb())
+
   test('Find all', async () => {
     const stats = await Stat.find();
     expect(stats).toHaveLength(1);
@@ -30,7 +40,9 @@ describe('Statistics DAO find tests', () => {
   })
 })
 
-describe('Statistics DAO delete tests', () => {
+describe('Statistics DAO tests', () => {
+  beforeEach(async () => stat = await scaffold.populateDb())
+
   test('Delete all', async () => {
     await Stat.deleteMany({});
     const stats = await Stat.find();
@@ -38,7 +50,9 @@ describe('Statistics DAO delete tests', () => {
   })
 })
 
-describe('Statistics DAO creation tests', () => {
+describe('Statistics DAO tests', () => {
+  beforeEach(async () => stat = await scaffold.populateDb())
+
   test('Create one', async () => {
     let newStat = new Stat({
       "nOfExecutionTextual": 2,
