@@ -10,9 +10,9 @@
         <b>Total number of methods in the project</b>: {{session.nOfTotalMethods}} <br>
         <b>Smells found</b>:
         <b-progress class="" :max="session.nOfGF + session.nOfLOC + session.nOfET" show-value>
-          <b-progress-bar :value="session.nOfGF" :label="session.nOfGF + ' General Fixture'" variant="success"></b-progress-bar>
-          <b-progress-bar :value="session.nOfLOC" :label="session.nOfLOC + ' Lack Of Cohesion'" variant="warning"></b-progress-bar>
-          <b-progress-bar :value="session.nOfET" :label="session.nOfET + ' Eager Test'"  variant="danger"></b-progress-bar>
+          <b-progress-bar :value="session.nOfGF" :label="session.nOfGF + ' General Fixture'" variant="info"></b-progress-bar>
+          <b-progress-bar :value="session.nOfLOC" :label="session.nOfLOC + ' Lack Of Cohesion'" variant="primary"></b-progress-bar>
+          <b-progress-bar :value="session.nOfET" :label="session.nOfET + ' Eager Test'"  variant="dark"></b-progress-bar>
         </b-progress>
       </p>
     </b-card>
