@@ -1,18 +1,20 @@
-const testServer = require('../testServer');
+const serverScaffold = require('../serverScaffold');
 const supertest = require('supertest');
 const models = require('../../server/models');
 const Stat = models.Stat;
 
-const reqBody = require('../body.stub').body;
+const reqBody = require('../db.mock.data').dbDefault;
+const { dbNoSessionNoActions } = require('../db.mock.data');
 
 let stat, app;
 
-beforeAll(async () => app = await testServer.connect())
-beforeEach(async () => stat = await testServer.crateStat())
-afterEach(async () => await testServer.clearDatabase())
-afterAll(async () => await testServer.closeDatabase())
+beforeAll(async () => app = await serverScaffold.connect())
+afterEach(async () => await serverScaffold.clearDatabase())
+afterAll(async () => await serverScaffold.closeDatabase())
 
 describe('Statistics API Tests', () => {
+  beforeEach(async () => stat = await serverScaffold.populateDb())
+
   test('POST /api/stat', async () => {
     const response = await supertest(app)
       .post('/api/stat')
@@ -83,10 +85,10 @@ describe('Statistics API Tests', () => {
       .get('/api/stat/' + stat._id.toString())
       .expect(200)
     expect(response.body).toBeTruthy();
-    expect(response.body.sessions).toHaveLength(2);
+    expect(response.body.sessions).toHaveLength(response.body.nOfExecutionTextual + response.body.nOfExecutionStructural);
     expect(response.body.nOfExecutionTextual).toBe(1);
     expect(response.body.nOfExecutionStructural).toBe(1);
-    expect(response.body.nOfTotalExecution).toBe(2);
+    expect(response.body.nOfTotalExecution).toBe(response.body.nOfExecutionTextual + response.body.nOfExecutionStructural);
   })
 
   test('GET /api/stat/:id [wrong ID]', async () => {
@@ -109,3 +111,18 @@ describe('Statistics API Tests', () => {
     expect(response.body.message).toBe('1 Stats were deleted successfully!')
   })
 })
+
+describe('Statistics API Tests', () => {
+  beforeEach(async () => stat = await serverScaffold.populateDb(dbNoSessionNoActions))
+
+  test('GET /api/stat/:id [no actions no sessions]', async () => {
+    const response = await supertest(app)
+      .get('/api/stat/' + stat._id.toString())
+      .expect(200)
+    expect(response.body).toBeTruthy();
+    expect(response.body.sessions).toHaveLength(response.body.nOfExecutionTextual + response.body.nOfExecutionStructural);
+    expect(response.body.nOfExecutionTextual).toBe(0);
+    expect(response.body.nOfExecutionStructural).toBe(0);
+    expect(response.body.nOfTotalExecution).toBe(response.body.nOfExecutionTextual + response.body.nOfExecutionStructural);
+  })
+});

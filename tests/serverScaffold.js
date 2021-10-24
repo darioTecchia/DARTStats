@@ -1,8 +1,11 @@
+const app = require('../server/server');
+const PORT = process.env.PORT || 3000
+
 const mongoose = require('mongoose');
 const { MongoMemoryServer } = require('mongodb-memory-server');
 const create = require("../server/controllers/Stat.controller").create;
 
-const reqBody = require('./body.stub').body;
+const { dbDefault } = require('./db.mock.data');
 
 let mongod;
 
@@ -16,13 +19,11 @@ module.exports.connect = async () => {
     poolSize: 10
   };
   await mongoose.connect(uri, mongooseOpts);
+  return app;
 }
 
 const mockRequest = (body) => {
-  return {
-    body: reqBody,
-    ...body
-  };
+  return body || {}
 };
 
 module.exports.mockRequest = mockRequest;
@@ -37,8 +38,10 @@ const mockResponse = () => {
 
 module.exports.mockResponse = mockResponse;
 
-module.exports.crateStat = async () => {
-  const req = mockRequest();
+module.exports.populateDb = async (dbMock) => {
+  const req = mockRequest({
+    body: dbMock || dbDefault
+  });
   const res = mockResponse();
   return await create(req, res);
 }

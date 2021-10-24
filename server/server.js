@@ -23,12 +23,16 @@ config.dev = !(process.env.NODE_ENV === 'production')
 async function start() {
 
   app.all("/*", (req, res, next) => {
-    console.log(`[FRONT-END] - ${new Date()}: [${req.method}] ${req.originalUrl} from ${req.ip}`);
+    if(process.env.NODE_ENV !== 'test') {
+      console.log(`[FRONT-END] - ${new Date()}: [${req.method}] ${req.originalUrl} from ${req.ip}`);
+    }
     next();
   });
 
   app.all("/api", (req, res, next) => {
-    console.log(`[API] - ${new Date()}: [${req.method}] ${req.originalUrl} from ${req.ip}`);
+    if(process.env.NODE_ENV !== 'test') {
+      console.log(`[API] - ${new Date()}: [${req.method}] ${req.originalUrl} from ${req.ip}`);
+    }
     res.send({ "message": "Welcome" });
   });
 
