@@ -3,15 +3,15 @@ const Action = models.Action;
 
 const serverScaffold = require('../serverScaffold');
 const supertest = require('supertest');
+const { dbNoActions } = require('../db.mock.data');
 
 let stat, action, app;
 
 beforeAll(async () => app = await serverScaffold.connect())
-beforeEach(async () => stat = await serverScaffold.populateDb())
 afterEach(async () => await serverScaffold.clearDatabase())
 afterAll(async () => await serverScaffold.closeDatabase())
 
-describe('Action API Find Test', () => {
+describe('Action API Tests', () => {
   beforeEach(async () => {
     stat = await serverScaffold.populateDb()
     action = new Action({
@@ -48,6 +48,19 @@ describe('Action API Find Test', () => {
 })
 
 describe('Action API Tests', () => {
+  beforeEach(async () => serverScaffold.populateDb(dbNoActions))
+
+  test('GET /api/action [no actions]', async () => {
+    const response = await supertest(app)
+      .get('/api/action')
+      .expect(200)
+    expect(response.body).toHaveLength(0);
+  })
+})
+
+describe('Action API Tests', () => {
+  beforeEach(async () => stat = await serverScaffold.populateDb())
+
   test('GET /api/action', async () => {
     const response = await supertest(app)
       .get('/api/action')

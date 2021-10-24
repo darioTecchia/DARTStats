@@ -3,15 +3,15 @@ const Session = models.Session;
 
 const serverScaffold = require('../serverScaffold');
 const supertest = require('supertest');
+const { dbNoSessionNoActions } = require('../db.mock.data');
 
 let stat, session, app;
 
 beforeAll(async () => app = await serverScaffold.connect())
-beforeEach(async () => stat = await serverScaffold.populateDb())
 afterEach(async () => await serverScaffold.clearDatabase())
 afterAll(async () => await serverScaffold.closeDatabase())
 
-describe('Session API Find Tests', () => {
+describe('Session API Tests', () => {
   beforeEach(async () => {
     stat = await serverScaffold.populateDb()
     session = new Session({
@@ -53,6 +53,19 @@ describe('Session API Find Tests', () => {
 })
 
 describe('Session API Tests', () => {
+  beforeEach(async () => serverScaffold.populateDb(dbNoSessionNoActions))
+
+  test('GET /api/session [no sessions]', async () => {
+    const response = await supertest(app)
+      .get('/api/session')
+      .expect(200)
+    expect(response.body).toHaveLength(0);
+  })
+})
+
+describe('Session API Tests', () => {
+  beforeEach(async () => stat = await serverScaffold.populateDb())
+
   test('GET /api/session', async () => {
     const response = await supertest(app)
       .get('/api/session')
