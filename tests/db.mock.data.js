@@ -127,3 +127,5 @@ exports.dbNoActions = {
   "nOfExecutionStructural": 1,
   "FILE_PATH": "/Users/dariotecchia/Documents/dev/SorrentoMarina/stats.json"
 }
+
+exports.dbEmpty = {}

@@ -1,4 +1,5 @@
 const models = require('../../server/models');
+const { dbEmpty } = require('../db.mock.data');
 const Stat = models.Stat;
 const scaffold = require('../scaffold');
 
@@ -9,7 +10,7 @@ afterEach(async () => await scaffold.clearDatabase())
 afterAll(async () => await scaffold.closeDatabase())
 
 describe('Statistics DAO tests', () => {
-  beforeEach(async () => await scaffold.populateDb({}))
+  beforeEach(async () => await scaffold.populateDb(dbEmpty))
 
   test('Find all [No stat]', async () => {
     const stats = await Stat.find();
