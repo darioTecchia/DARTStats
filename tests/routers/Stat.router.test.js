@@ -13,7 +13,7 @@ afterEach(async () => await serverScaffold.clearDatabase())
 afterAll(async () => await serverScaffold.closeDatabase())
 
 describe('Statistics API Tests', () => {
-  beforeEach(async () => await scaffold.populateDb(dbEmpty))
+  beforeEach(async () => await serverScaffold.populateDb(dbEmpty))
 
   test('Find all [No stat]', async () => {
     const response = await supertest(app)
