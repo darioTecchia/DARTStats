@@ -4,7 +4,7 @@ const Stat = models.Stat;
 const StatController = require("../../server/controllers/Stat.controller");
 
 const scaffold = require('../scaffold');
-const { dbNoSessionNoActions } = require('../db.mock.data');
+const { dbNoSessionNoActions, dbEmpty } = require('../db.mock.data');
 
 let stat;
 
@@ -13,7 +13,7 @@ afterEach(async () => await scaffold.clearDatabase())
 afterAll(async () => await scaffold.closeDatabase())
 
 describe('Statistics Controller Tests', () => {
-  beforeEach(async () => stat = await scaffold.populateDb({}))
+  beforeEach(async () => stat = await scaffold.populateDb(dbEmpty))
 
   test('findAll [No stats]', async () => {
     const req = scaffold.mockRequest();

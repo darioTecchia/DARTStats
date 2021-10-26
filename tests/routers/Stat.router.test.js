@@ -4,13 +4,24 @@ const models = require('../../server/models');
 const Stat = models.Stat;
 
 const reqBody = require('../db.mock.data').dbDefault;
-const { dbNoSessionNoActions } = require('../db.mock.data');
+const { dbNoSessionNoActions, dbEmpty } = require('../db.mock.data');
 
 let stat, app;
 
 beforeAll(async () => app = await serverScaffold.connect())
 afterEach(async () => await serverScaffold.clearDatabase())
 afterAll(async () => await serverScaffold.closeDatabase())
+
+describe('Statistics API Tests', () => {
+  beforeEach(async () => await scaffold.populateDb(dbEmpty))
+
+  test('Find all [No stat]', async () => {
+    const response = await supertest(app)
+      .get('/api/stat')
+      .expect(200)
+    expect(response.body).toHaveLength(0);
+  })
+});
 
 describe('Statistics API Tests', () => {
   beforeEach(async () => stat = await serverScaffold.populateDb())
