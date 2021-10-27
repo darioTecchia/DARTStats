@@ -12,12 +12,6 @@ module.exports = app => {
   // Retrieve a single stats with id
   router.get("/:id", stat.findOne);
 
-  // Retrieve all sessions from a stat
-  router.get("/:id/sessions", stat.findSessionsByStatId);
-
-  // Retrieve all actions from a stat
-  router.get("/:id/actions", stat.findActionsByStatId);
-
   // Delete all stats
   router.delete("/", stat.deleteAll);
 

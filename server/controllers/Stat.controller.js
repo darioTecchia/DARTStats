@@ -84,39 +84,6 @@ exports.findAll = async (req, res) => {
   }
 };
 
-exports.findSessionsByStatId = async (req, res) => {
-  const id = req.params.id;
-
-  try {
-    const data = await Session.find({ statId: id });
-    res.send(data);
-    return data;
-  } catch (error) {
-    res.status(500).send({
-      message:
-        error.message || "Some error occurred while retrieving stats."
-    });
-    return null;
-  }
-}
-
-exports.findActionsByStatId = async (req, res) => {
-  const id = req.params.id;
-
-  try {
-    const data = await Action.find({ statId: id })
-    res.send(data);
-    return data;
-
-  } catch (error) {
-    res.status(500).send({
-      message:
-        error.message || "Some error occurred while retrieving stats."
-    });
-    return null;
-  }
-}
-
 // Find a single Stat with an id
 exports.findOne = async (req, res) => {
   const id = req.params.id;
