@@ -22,6 +22,9 @@ describe('Session API Tests', () => {
       "nOfGF": 61,
       "nOfET": 27,
       "nOfLOC": 61,
+      "nOfHCTD": 5,
+      "nOfMG": 10,
+      "nOfTCD": 20,
       "nOfTotalClasses": 167,
       "kind": "Textual",
       "statId": stat._id.toString(),
@@ -45,6 +48,9 @@ describe('Session API Tests', () => {
     expect(response.body.nOfGF).toBe(61);
     expect(response.body.nOfET).toBe(27);
     expect(response.body.nOfLOC).toBe(61);
+    expect(response.body.nOfHCTD).toBe(5);
+    expect(response.body.nOfMG).toBe(10);
+    expect(response.body.nOfTCD).toBe(20);
     expect(response.body.nOfTotalClasses).toBe(167);
     expect(response.body.kind).toBe("Textual");
     expect(response.body.statId.toString()).toBe(stat._id.toString());
