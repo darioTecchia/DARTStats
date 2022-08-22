@@ -34,6 +34,9 @@ describe('Session Controller Tests', () => {
       "nOfGF": 61,
       "nOfET": 27,
       "nOfLOC": 61,
+      "nOfHCTD": 5,
+      "nOfMG": 10,
+      "nOfTCD": 20,
       "nOfTotalClasses": 167,
       "kind": "Textual",
       "statId": stat._id.toString(),
@@ -61,6 +64,9 @@ describe('Session Controller Tests', () => {
     expect(singleSession.nOfGF).toBe(61);
     expect(singleSession.nOfET).toBe(27);
     expect(singleSession.nOfLOC).toBe(61);
+    expect(singleSession.nOfHCTD).toBe(5);
+    expect(singleSession.nOfMG).toBe(10);
+    expect(singleSession.nOfTCD).toBe(20);
     expect(singleSession.nOfTotalClasses).toBe(167);
     expect(singleSession.kind).toBe("Textual");
     expect(singleSession.statId.toString()).toBe(stat._id.toString());
